@@ -167,6 +167,9 @@ public class Resources {
 	public static final String TBLMODULOS_DESACOPLADO = "TBLMODULOS_DESACOPLADO";
 	public static final String TBLMODULOS_GERENCIADOR = "TBLMODULOS_GERENCIADOR";
 	public static final String TBLMODULOS_CONFIGURACAO = "TBLMODULOS_CONFIGURACAO";
+	public static final String FRMLIMITE_TITLE = "FRMLIMITE_TITLE";
+	public static final String FRMMODULOS_BTN_SALVAR = "FRMMODULOS_BTN_SALVAR";
+	public static final String FRMMODULOS_BTN_CANCELAR = "FRMMODULOS_BTN_CANCELAR";
 
 	static {
 		try {

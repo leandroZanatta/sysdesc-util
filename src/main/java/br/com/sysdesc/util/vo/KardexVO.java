@@ -16,6 +16,10 @@ public class KardexVO {
 
 	private BigDecimal valorOperacao;
 
-	private BigDecimal saldo;
+	private BigDecimal saldoTotal;
+
+	private BigDecimal quantidadeTotal;
+
+	private BigDecimal custoUnitario;
 
 }

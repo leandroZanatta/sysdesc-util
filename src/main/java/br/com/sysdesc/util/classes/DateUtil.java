@@ -9,7 +9,7 @@ import java.util.Date;
 public class DateUtil {
 
 	public static final String FORMATO_DD_MM_YYY = "dd/MM/yyy";
-	public static final String FORMATO_DD_MM_YYYY_HH_MM_SS = "dd/MM/yyyy hh:mm:ss";
+	public static final String FORMATO_DD_MM_YYYY_HH_MM_SS = "dd/MM/yyyy HH:mm:ss";
 	private static final ZoneId FUSO_HORARIO = ZoneId.systemDefault();
 
 	public static Date parse(String formato, String valor) {
@@ -32,5 +32,13 @@ public class DateUtil {
 
 		return Date.from(
 				currentDateTime.withHour(0).withMinute(0).withSecond(0).withNano(0).atZone(FUSO_HORARIO).toInstant());
+	}
+
+	public static Date getFinalDate(Date data) {
+		LocalDateTime currentDateTime = LocalDateTime.ofInstant(data.toInstant(), FUSO_HORARIO);
+
+		return Date.from(currentDateTime.withHour(23).withMinute(59).withSecond(59).withNano(999).atZone(FUSO_HORARIO)
+				.toInstant());
+
 	}
 }

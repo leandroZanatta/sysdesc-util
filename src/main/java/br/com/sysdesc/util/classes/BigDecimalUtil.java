@@ -33,6 +33,6 @@ public class BigDecimalUtil {
 	}
 
 	public static boolean diferente(BigDecimal valor1, BigDecimal valor2) {
-		return valor1.setScale(2,RoundingMode.HALF_EVEN).compareTo(valor2.setScale(2,RoundingMode.HALF_EVEN))!=0;
+		return valor1.setScale(2, RoundingMode.HALF_EVEN).compareTo(valor2.setScale(2, RoundingMode.HALF_EVEN)) != 0;
 	}
 }

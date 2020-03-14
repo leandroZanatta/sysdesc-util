@@ -2,50 +2,50 @@ package br.com.sysdesc.util.exception;
 
 import java.io.Serializable;
 
-import br.com.lar.util.resources.Resources;
+import br.com.sysdesc.util.resources.Resources;
 
 public class SysDescException extends RuntimeException {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private final SysDescModel sysDescModel;
+    private final SysDescModel sysDescModel;
 
-	public SysDescException(String mensagem) {
+    public SysDescException(String mensagem) {
 
-		super(mensagem);
+        super(mensagem);
 
-		this.sysDescModel = new SysDescModel(Resources.translate(mensagem));
-	}
+        this.sysDescModel = new SysDescModel(Resources.translate(mensagem));
+    }
 
-	public SysDescException(String mensagem, Object... params) {
+    public SysDescException(String mensagem, Object... params) {
 
-		super(mensagem);
+        super(mensagem);
 
-		this.sysDescModel = new SysDescModel(String.format(Resources.translate(mensagem), params));
-	}
+        this.sysDescModel = new SysDescModel(String.format(Resources.translate(mensagem), params));
+    }
 
-	public String getMensagem() {
-		return this.sysDescModel.getMensagem();
-	}
+    public String getMensagem() {
+        return this.sysDescModel.getMensagem();
+    }
 
 }
 
 class SysDescModel implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private String mensagem;
+    private String mensagem;
 
-	public SysDescModel(String mensagem) {
-		this.mensagem = mensagem;
-	}
+    public SysDescModel(String mensagem) {
+        this.mensagem = mensagem;
+    }
 
-	public String getMensagem() {
-		return mensagem;
-	}
+    public String getMensagem() {
+        return mensagem;
+    }
 
-	public void setMensagem(String mensagem) {
-		this.mensagem = mensagem;
-	}
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
+    }
 
 }

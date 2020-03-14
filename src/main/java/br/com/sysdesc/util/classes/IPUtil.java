@@ -8,104 +8,104 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import br.com.lar.util.vo.IPVO;
+import br.com.sysdesc.util.vo.IPVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class IPUtil {
 
-	private static final String REGEX = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
+    private static final String REGEX = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
 
-	public static boolean isIpValid(String ipPDV) {
+    public static boolean isIpValid(String ipPDV) {
 
-		Pattern pattern = Pattern.compile(REGEX);
+        Pattern pattern = Pattern.compile(REGEX);
 
-		return pattern.matcher(ipPDV).matches();
-	}
+        return pattern.matcher(ipPDV).matches();
+    }
 
-	public static boolean isNetworkMatch(IPVO ipLocal, String iptestar) {
+    public static boolean isNetworkMatch(IPVO ipLocal, String iptestar) {
 
-		String[] mascara = ipLocal.getMascara().split("\\.");
-		String[] ip1 = ipLocal.getIp().split("\\.");
-		String[] ip2 = iptestar.split("\\.");
+        String[] mascara = ipLocal.getMascara().split("\\.");
+        String[] ip1 = ipLocal.getIp().split("\\.");
+        String[] ip2 = iptestar.split("\\.");
 
-		if (mascara[0].equals("255") && !ip1[0].equals(ip2[0])) {
+        if (mascara[0].equals("255") && !ip1[0].equals(ip2[0])) {
 
-			return false;
-		}
-		if (mascara[1].equals("255") && !ip1[1].equals(ip2[1])) {
+            return false;
+        }
+        if (mascara[1].equals("255") && !ip1[1].equals(ip2[1])) {
 
-			return false;
-		}
-		if (mascara[2].equals("255") && !ip1[2].equals(ip2[2])) {
+            return false;
+        }
+        if (mascara[2].equals("255") && !ip1[2].equals(ip2[2])) {
 
-			return false;
-		}
-		if (mascara[3].equals("255") && !ip1[3].equals(ip2[3])) {
+            return false;
+        }
+        if (mascara[3].equals("255") && !ip1[3].equals(ip2[3])) {
 
-			return false;
-		}
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	public static List<IPVO> getIps() {
+    public static List<IPVO> getIps() {
 
-		List<IPVO> listaIPs = new ArrayList<>();
+        List<IPVO> listaIPs = new ArrayList<>();
 
-		try {
-			for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
 
-				NetworkInterface intf = en.nextElement();
+                NetworkInterface intf = en.nextElement();
 
-				for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
-					InetAddress address = enumIpAddr.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+                    InetAddress address = enumIpAddr.nextElement();
 
-					if (!address.isLoopbackAddress() && address.isSiteLocalAddress()) {
+                    if (!address.isLoopbackAddress() && address.isSiteLocalAddress()) {
 
-						String endereco = address.toString();
+                        String endereco = address.toString();
 
-						listaIPs.add(new IPVO(endereco.substring(1, endereco.length()), getSubnet(address), null));
-					}
+                        listaIPs.add(new IPVO(endereco.substring(1, endereco.length()), getSubnet(address), null));
+                    }
 
-				}
-			}
-		} catch (SocketException e) {
+                }
+            }
+        } catch (SocketException e) {
 
-			log.error("Erro ao buscar ip da máquina", e);
-		}
+            log.error("Erro ao buscar ip da máquina", e);
+        }
 
-		return listaIPs;
-	}
+        return listaIPs;
+    }
 
-	private static String getSubnet(InetAddress host) throws SocketException {
+    private static String getSubnet(InetAddress host) throws SocketException {
 
-		NetworkInterface networkInterface = NetworkInterface.getByInetAddress(host);
+        NetworkInterface networkInterface = NetworkInterface.getByInetAddress(host);
 
-		int shft = 0xffffffff << (32 - networkInterface.getInterfaceAddresses().get(0).getNetworkPrefixLength());
+        int shft = 0xffffffff << (32 - networkInterface.getInterfaceAddresses().get(0).getNetworkPrefixLength());
 
-		int oct1 = ((byte) ((shft & 0xff000000) >> 24)) & 0xff;
-		int oct2 = ((byte) ((shft & 0x00ff0000) >> 16)) & 0xff;
-		int oct3 = ((byte) ((shft & 0x0000ff00) >> 8)) & 0xff;
-		int oct4 = ((byte) (shft & 0x000000ff)) & 0xff;
+        int oct1 = ((byte) ((shft & 0xff000000) >> 24)) & 0xff;
+        int oct2 = ((byte) ((shft & 0x00ff0000) >> 16)) & 0xff;
+        int oct3 = ((byte) ((shft & 0x0000ff00) >> 8)) & 0xff;
+        int oct4 = ((byte) (shft & 0x000000ff)) & 0xff;
 
-		return oct1 + "." + oct2 + "." + oct3 + "." + oct4;
-	}
+        return oct1 + "." + oct2 + "." + oct3 + "." + oct4;
+    }
 
-	public static void main(String[] args) {
-		getIps();
-	}
+    public static void main(String[] args) {
+        getIps();
+    }
 
-	public static boolean isOnlyNetworkMatch(String ipPDV) {
+    public static boolean isOnlyNetworkMatch(String ipPDV) {
 
-		for (IPVO ipVO : getIps()) {
+        for (IPVO ipVO : getIps()) {
 
-			if (isNetworkMatch(ipVO, ipPDV)) {
-				return true;
-			}
-		}
+            if (isNetworkMatch(ipVO, ipPDV)) {
+                return true;
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 
 }

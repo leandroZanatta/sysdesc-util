@@ -9,52 +9,51 @@ import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import br.com.lar.util.resources.Configuracoes;
+import br.com.sysdesc.util.resources.Configuracoes;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ExtratorZip {
 
-	public void extrairVersao(File arquivoVersaoZIP) throws IOException {
-		log.info("Extraindo arquivo {}", arquivoVersaoZIP);
+    public void extrairVersao(File arquivoVersaoZIP) throws IOException {
+        log.info("Extraindo arquivo {}", arquivoVersaoZIP);
 
-		try (ZipInputStream zis = new ZipInputStream(new BufferedInputStream(new FileInputStream(arquivoVersaoZIP)))) {
+        try (ZipInputStream zis = new ZipInputStream(new BufferedInputStream(new FileInputStream(arquivoVersaoZIP)))) {
 
-			ZipEntry entry;
+            ZipEntry entry;
 
-			while ((entry = zis.getNextEntry()) != null) {
+            while ((entry = zis.getNextEntry()) != null) {
 
-				log.info("Extraindo: {}", entry.getName());
+                log.info("Extraindo: {}", entry.getName());
 
-				if (entry.isDirectory()) {
+                if (entry.isDirectory()) {
 
-					new File(Configuracoes.USER_DIR + File.separator + entry.getName()).mkdirs();
+                    new File(Configuracoes.USER_DIR + File.separator + entry.getName()).mkdirs();
 
-					continue;
-				} else {
+                    continue;
+                } else {
 
-					int di = entry.getName().lastIndexOf('/');
+                    int di = entry.getName().lastIndexOf('/');
 
-					if (di != -1) {
-						new File(Configuracoes.USER_DIR + File.separator + entry.getName().substring(0, di)).mkdirs();
-					}
-				}
+                    if (di != -1) {
+                        new File(Configuracoes.USER_DIR + File.separator + entry.getName().substring(0, di)).mkdirs();
+                    }
+                }
 
-				int count;
+                int count;
 
-				byte[] data = new byte[1024];
+                byte[] data = new byte[1024];
 
-				String arquivo = Configuracoes.USER_DIR + File.separator + entry.getName();
+                String arquivo = Configuracoes.USER_DIR + File.separator + entry.getName();
 
-				try (FileOutputStream fos = new FileOutputStream(arquivo);
-						BufferedOutputStream dest = new BufferedOutputStream(fos)) {
+                try (FileOutputStream fos = new FileOutputStream(arquivo); BufferedOutputStream dest = new BufferedOutputStream(fos)) {
 
-					while ((count = zis.read(data)) != -1)
-						dest.write(data, 0, count);
-				}
-			}
-		}
+                    while ((count = zis.read(data)) != -1)
+                        dest.write(data, 0, count);
+                }
+            }
+        }
 
-	}
+    }
 
 }

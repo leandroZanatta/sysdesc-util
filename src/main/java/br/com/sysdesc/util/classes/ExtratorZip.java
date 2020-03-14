@@ -5,16 +5,18 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import br.com.sysdesc.util.resources.Configuracoes;
+import br.com.lar.util.resources.Configuracoes;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class ExtratorZip {
 
-	public void extrairVersao(File arquivoVersaoZIP) throws Exception {
-
-		BufferedOutputStream dest = null;
+	public void extrairVersao(File arquivoVersaoZIP) throws IOException {
+		log.info("Extraindo arquivo {}", arquivoVersaoZIP);
 
 		try (ZipInputStream zis = new ZipInputStream(new BufferedInputStream(new FileInputStream(arquivoVersaoZIP)))) {
 
@@ -22,11 +24,11 @@ public class ExtratorZip {
 
 			while ((entry = zis.getNextEntry()) != null) {
 
-				System.out.println("Extraindo: " + entry.getName());
+				log.info("Extraindo: {}", entry.getName());
 
 				if (entry.isDirectory()) {
 
-					new File(Configuracoes.USER_DIR + "/" + entry.getName()).mkdirs();
+					new File(Configuracoes.USER_DIR + File.separator + entry.getName()).mkdirs();
 
 					continue;
 				} else {
@@ -34,24 +36,22 @@ public class ExtratorZip {
 					int di = entry.getName().lastIndexOf('/');
 
 					if (di != -1) {
-						new File(Configuracoes.USER_DIR + "/" + entry.getName().substring(0, di)).mkdirs();
+						new File(Configuracoes.USER_DIR + File.separator + entry.getName().substring(0, di)).mkdirs();
 					}
 				}
 
 				int count;
 
-				byte data[] = new byte[1024];
+				byte[] data = new byte[1024];
 
-				FileOutputStream fos = new FileOutputStream(Configuracoes.USER_DIR + "/" + entry.getName());
+				String arquivo = Configuracoes.USER_DIR + File.separator + entry.getName();
 
-				dest = new BufferedOutputStream(fos);
+				try (FileOutputStream fos = new FileOutputStream(arquivo);
+						BufferedOutputStream dest = new BufferedOutputStream(fos)) {
 
-				while ((count = zis.read(data)) != -1)
-					dest.write(data, 0, count);
-
-				dest.flush();
-
-				dest.close();
+					while ((count = zis.read(data)) != -1)
+						dest.write(data, 0, count);
+				}
 			}
 		}
 

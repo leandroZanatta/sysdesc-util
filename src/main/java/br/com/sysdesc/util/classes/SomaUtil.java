@@ -28,4 +28,10 @@ public class SomaUtil {
 		this.value = value;
 	}
 
+	public BigDecimal subtrair(BigDecimal valor) {
+		this.value = this.value.subtract(valor);
+
+		return this.value;
+	}
+
 }

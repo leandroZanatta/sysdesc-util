@@ -2,7 +2,7 @@ package br.com.sysdesc.util.exception;
 
 import java.io.Serializable;
 
-import br.com.sysdesc.util.resources.Resources;
+import br.com.lar.util.resources.Resources;
 
 public class SysDescException extends RuntimeException {
 
@@ -15,6 +15,13 @@ public class SysDescException extends RuntimeException {
 		super(mensagem);
 
 		this.sysDescModel = new SysDescModel(Resources.translate(mensagem));
+	}
+
+	public SysDescException(String mensagem, Object... params) {
+
+		super(mensagem);
+
+		this.sysDescModel = new SysDescModel(String.format(Resources.translate(mensagem), params));
 	}
 
 	public String getMensagem() {

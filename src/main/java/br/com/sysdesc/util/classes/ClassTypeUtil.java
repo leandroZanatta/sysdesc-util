@@ -4,14 +4,15 @@ import java.lang.reflect.ParameterizedType;
 
 public class ClassTypeUtil {
 
+	private ClassTypeUtil() {
+	}
+
 	@SuppressWarnings("unchecked")
 	public static <T> Class<T> getGenericType(Class<?> classePai) {
 
 		final ParameterizedType type = (ParameterizedType) classePai.getGenericSuperclass();
 
-		Class<T> clazz = (Class<T>) type.getActualTypeArguments()[0];
-
-		return clazz;
+		return (Class<T>) type.getActualTypeArguments()[0];
 	}
 
 }

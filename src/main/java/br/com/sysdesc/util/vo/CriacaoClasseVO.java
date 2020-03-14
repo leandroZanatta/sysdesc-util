@@ -2,7 +2,7 @@ package br.com.sysdesc.util.vo;
 
 import java.util.List;
 
-import br.com.sysdesc.util.enumeradores.ModificadoresEnum;
+import br.com.lar.util.enumeradores.ModificadoresEnum;
 
 public class CriacaoClasseVO {
 
@@ -12,7 +12,7 @@ public class CriacaoClasseVO {
 
 	private List<ModificadoresEnum> modificadores;
 
-	private Boolean gerarGetterSetter;
+	private boolean gerarGetterSetter;
 
 	public CriacaoClasseVO(List<ModificadoresEnum> modificadores, String nomeMetodo, Class<?> tipoMetodo,
 			Boolean gerarGetterSetter) {
@@ -46,11 +46,11 @@ public class CriacaoClasseVO {
 		this.modificadores = modificadores;
 	}
 
-	public Boolean getGerarGetterSetter() {
+	public boolean isGerarGetterSetter() {
 		return gerarGetterSetter;
 	}
 
-	public void setGerarGetterSetter(Boolean gerarGetterSetter) {
+	public void setGerarGetterSetter(boolean gerarGetterSetter) {
 		this.gerarGetterSetter = gerarGetterSetter;
 	}
 

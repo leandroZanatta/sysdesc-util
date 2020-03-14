@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
-import br.com.sysdesc.util.classes.StringUtil;
-
 public final class ProcessUtil {
 
 	private ProcessUtil() {

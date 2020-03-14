@@ -2,19 +2,22 @@ package br.com.sysdesc.util.classes;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ListUtil {
 
+	private ListUtil() {
+	}
+
 	@SafeVarargs
 	public static <T> List<T> toList(T... array) {
 
-		List<T> lista = new ArrayList<>();
-		for (T item : array) {
-			lista.add(item);
-		}
+		List<T> retorno = new ArrayList<>();
 
-		return lista;
+		Collections.addAll(retorno, array);
+
+		return retorno;
 	}
 
 	public static <T> boolean isNullOrEmpty(List<T> lista) {

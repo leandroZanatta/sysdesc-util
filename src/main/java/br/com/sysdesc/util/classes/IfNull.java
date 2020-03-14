@@ -2,6 +2,9 @@ package br.com.sysdesc.util.classes;
 
 public class IfNull {
 
+	private IfNull() {
+	}
+
 	public static <T> T get(T objeto, T caseNull) {
 
 		if (objeto == null) {

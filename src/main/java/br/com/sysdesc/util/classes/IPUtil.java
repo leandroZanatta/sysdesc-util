@@ -8,11 +8,13 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import br.com.sysdesc.util.vo.IPVO;
+import br.com.lar.util.vo.IPVO;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class IPUtil {
 
-	private final static String REGEX = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
+	private static final String REGEX = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
 
 	public static boolean isIpValid(String ipPDV) {
 
@@ -21,7 +23,7 @@ public class IPUtil {
 		return pattern.matcher(ipPDV).matches();
 	}
 
-	public static Boolean isNetworkMatch(IPVO ipLocal, String iptestar) {
+	public static boolean isNetworkMatch(IPVO ipLocal, String iptestar) {
 
 		String[] mascara = ipLocal.getMascara().split("\\.");
 		String[] ip1 = ipLocal.getIp().split("\\.");
@@ -70,6 +72,7 @@ public class IPUtil {
 			}
 		} catch (SocketException e) {
 
+			log.error("Erro ao buscar ip da máquina", e);
 		}
 
 		return listaIPs;

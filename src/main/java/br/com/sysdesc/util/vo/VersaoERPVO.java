@@ -6,7 +6,7 @@ public class VersaoERPVO {
 
 	private String arquivoERP;
 
-	private String arquivoSysdesc;
+	private String arquivoAtualizacao;
 
 	public String getVersaoERP() {
 		return versaoERP;
@@ -24,12 +24,12 @@ public class VersaoERPVO {
 		this.arquivoERP = arquivoERP;
 	}
 
-	public String getArquivoSysdesc() {
-		return arquivoSysdesc;
+	public String getArquivoAtualizacao() {
+		return arquivoAtualizacao;
 	}
 
-	public void setArquivoSysdesc(String arquivoSysdesc) {
-		this.arquivoSysdesc = arquivoSysdesc;
+	public void setArquivoAtualizacao(String arquivoAtualizacao) {
+		this.arquivoAtualizacao = arquivoAtualizacao;
 	}
 
 }

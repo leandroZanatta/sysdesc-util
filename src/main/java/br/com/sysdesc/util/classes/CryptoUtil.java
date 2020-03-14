@@ -2,6 +2,7 @@ package br.com.sysdesc.util.classes;
 
 import java.math.BigInteger;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -14,10 +15,16 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 import javax.swing.JOptionPane;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class CryptoUtil {
 
-	protected final static String SECRET_KEY = "4FJjks#2";
-	private final static Charset CHARSET = Charset.forName("UTF-8");
+	private CryptoUtil() {
+	}
+
+	protected static final String SECRET_KEY = "4FJjks#2";
+	private static final Charset CHARSET = StandardCharsets.UTF_8;
 	private static SecretKeySpec keySpec = null;
 	private static Cipher cipher;
 
@@ -28,7 +35,8 @@ public class CryptoUtil {
 
 			cipher = Cipher.getInstance("Blowfish");
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
-			e.printStackTrace();
+
+			log.error("Erro ao gerar criptografia", e);
 		}
 	}
 

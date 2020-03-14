@@ -4,20 +4,26 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Resources {
 
 	private Resources() {
 	}
 
 	private static Properties mapaValores;
-	private static Charset charset = Charset.forName("UTF-8");
+
+	public static final String APPLICATION_JAR = "APPLICATION_JAR";
+	public static final String APPLICATION_VERSOES = "APPLICATION_VERSOES";
 
 	public static final String OPTION_VALIDACAO = "OPTION_VALIDACAO";
+	public static final String OPTION_ERRO = "OPTION_ERRO";
 
 	public static final String FRMLOGIN_LB_LOGIN = "FRMLOGIN_LB_LOGIN";
 	public static final String FRMLOGIN_BT_LOGAR = "FRMLOGIN_BT_LOGAR";
@@ -38,6 +44,9 @@ public class Resources {
 	public static final String TBLCONFIG_TAMANHO = "TBLCONFIG_TAMANHO";
 	public static final String TBLCONFIG_FORMATACAO = "TBLCONFIG_FORMATACAO";
 
+	public static final String TBLSALARIO_DATA_ALTERACAO = "TBLSALARIO_DATA_ALTERACAO";
+	public static final String TBLSALARIO_VALOR_SALARIO = "TBLSALARIO_VALOR_SALARIO";
+
 	public static final String FRMCONEXAO_TITULO = "FRMCONEXAO_TITULO";
 	public static final String FRMCONEXAO_MSG_SALVAR = "FRMCONEXAO_MSG_SALVAR";
 	public static final String FRMCONEXAO_PRP_CONEXAO = "FRMCONEXAO_PRP_CONEXAO";
@@ -55,11 +64,6 @@ public class Resources {
 	public static final String FRMUSUARIO_LB_USUARIO = "FRMUSUARIO_LB_USUARIO";
 	public static final String FRMUSUARIO_LB_SENHA = "FRMUSUARIO_LB_SENHA";
 
-	public static final String FRMMARCA_TITLE = "FRMMARCA_TITLE";
-	public static final String FRMMARCA_LB_CODIGO = "FRMMARCA_LB_CODIGO";
-	public static final String FRMMARCA_LB_DESCRICAO = "FRMMARCA_LB_DESCRICAO";
-	public static final String FRMMARCA_MSG_DESCRICAO_INVALIDA = "FRMMARCA_MSG_DESCRICAO_INVALIDA";
-
 	public static final String FRMAPPLICATION_MN_CADASTRO = "FRMAPPLICATION_MN_CADASTRO";
 	public static final String FRMAPPLICATION_MI_USUARIOS = "FRMAPPLICATION_MI_USUARIOS";
 	public static final String FRMAPPLICATION_LB_USUARIO = "FRMAPPLICATION_LB_USUARIO";
@@ -68,15 +72,6 @@ public class Resources {
 	public static final String FRMESTADO_LB_CODIGO = "FRMESTADO_LB_CODIGO";
 	public static final String FRMESTADO_LB_DESCRICAO = "FRMESTADO_LB_DESCRICAO";
 	public static final String FRMESTADO_LB_UF = "FRMESTADO_LB_UF";
-
-	public static final String FRMDEPARTAMENTO_TITLE = "FRMDEPARTAMENTO_TITLE";
-	public static final String FRMDEPARTAMENTO_LB_CODIGO = "FRMDEPARTAMENTO_LB_CODIGO";
-	public static final String FRMDEPARTAMENTO_LB_DESCRICAO = "FRMDEPARTAMENTO_LB_DESCRICAO";
-
-	public static final String FRMUNIDADE_TITLE = "FRMUNIDADE_TITLE";
-	public static final String FRMUNIDADE_LB_CODIGO = "FRMUNIDADE_LB_CODIGO";
-	public static final String FRMUNIDADE_LB_DESCRICAO = "FRMUNIDADE_LB_DESCRICAO";
-	public static final String FRMUNIDADE_LB_DESCRICAO_REDUZIDA = "FRMUNIDADE_LB_DESCRICAO_REDUZIDA";
 
 	public static final String FRMCIDADE_TITLE = "FRMCIDADE_TITLE";
 	public static final String FRMCIDADE_LB_CODIGO = "FRMCIDADE_LB_CODIGO";
@@ -98,41 +93,10 @@ public class Resources {
 	public static final String FRMPESQUISA_MSG_PAGINACAO = "FRMPESQUISA_MSG_PAGINACAO";
 	public static final String FRMPESQUISA_MSG_PESQUISA = "FRMPESQUISA_MSG_PESQUISA";
 
-	public static final String FRMCATEGORIA_TITLE = "FRMCATEGORIA_TITLE";
-	public static final String FRMCATEGORIA_LB_CODIGO = "FRMCATEGORIA_LB_CODIGO";
-	public static final String FRMCATEGORIA_LB_DEPARTAMENTO = "FRMCATEGORIA_LB_DEPARTAMENTO";
-	public static final String FRMCATEGORIA_LB_DESCRICAO = "FRMCATEGORIA_LB_DESCRICAO";
-
-	public static final String FRMPRODUTO_TITLE = "FRMPRODUTO_TITLE";
-	public static final String FRMPRODUTO_LB_CODIGO = "FRMPRODUTO_LB_CODIGO";
-	public static final String FRMPRODUTO_LB_DESCRICAO = "FRMPRODUTO_LB_DESCRICAO";
-	public static final String FRMPRODUTO_LB_DEPARTAMENTO = "FRMPRODUTO_LB_DEPARTAMENTO";
-	public static final String FRMPRODUTO_LB_UNIDADE = "FRMPRODUTO_LB_UNIDADE";
-	public static final String FRMPRODUTO_LB_CATEGORIA = "FRMPRODUTO_LB_CATEGORIA";
-	public static final String FRMPRODUTO_LB_SUBCATEGORIA = "FRMPRODUTO_LB_SUBCATEGORIA";
-	public static final String FRMPRODUTO_LB_FORNECEDOR = "FRMPRODUTO_LB_FORNECEDOR";
-	public static final String FRMPRODUTO_LB_MARCA = "FRMPRODUTO_LB_MARCA";
-	public static final String FRMPRODUTO_LB_MINIMO = "FRMPRODUTO_LB_MINIMO";
-	public static final String FRMPRODUTO_LB_MAXIMO = "FRMPRODUTO_LB_MAXIMO";
-	public static final String FRMPRODUTO_LB_TIPO = "FRMPRODUTO_LB_TIPO";
-	public static final String FRMPRODUTO_LB_STATUS = "FRMPRODUTO_LB_STATUS";
-	public static final String FRMPRODUTO_LB_QUANTIDADEFRACIONADA = "FRMPRODUTO_LB_QUANTIDADEFRACIONADA";
-	public static final String FRMPRODUTO_LB_MOVIMENTAESTOQUE = "FRMPRODUTO_LB_MOVIMENTAESTOQUE";
-	public static final String FRMPRODUTO_LB_CODIGOBARRA = "FRMPRODUTO_LB_CODIGOBARRA";
-
-	public static final String FRMPDV_LB_CODIGO = "FRMPDV_LB_CODIGO";
-	public static final String FRMPDV_LB_NUMEROPDV = "FRMPDV_LB_NUMEROPDV";
-	public static final String FRMPDV_LB_IPPDV = "FRMPDV_LB_IPPDV";
-	public static final String FRMPDV_LB_SITUACAO = "FRMPDV_LB_SITUACAO";
-
-	public static final String FRMSUBCATEGORIA_TITLE = "FRMSUBCATEGORIA_TITLE";
-	public static final String FRMSUBCATEGORIA_LB_CODIGO = "FRMSUBCATEGORIA_LB_CODIGO";
-	public static final String FRMSUBCATEGORIA_LB_DESCRICAO = "FRMSUBCATEGORIA_LB_DESCRICAO";
-	public static final String FRMSUBCATEGORIA_LB_CATEGORIA = "FRMSUBCATEGORIA_LB_CATEGORIA";
-	public static final String FRMSUBCATEGORIA_LB_DEPARTAMENTO = "FRMSUBCATEGORIA_LB_DEPARTAMENTO";
 	public static final String FRMVALIDARSENHA_TITLE = "FRMVALIDARSENHA_TITLE";
 	public static final String FRMVALIDARSENHA_LB_SENHA = "FRMVALIDARSENHA_LB_SENHA";
 	public static final String FRMVALIDARSENHA_LB_CONFIRMAR_SENHA = "FRMVALIDARSENHA_LB_CONFIRMAR_SENHA";
+
 	public static final String FRMCLIENTE_TITLE = "FRMCLIENTE_TITLE";
 	public static final String FRMCLIENTE_LBL_CODIGO = "FRMCLIENTE_LBL_CODIGO";
 	public static final String FRMCLIENTE_LBL_CPF_CNPJ = "FRMCLIENTE_LBL_CPF_CNPJ";
@@ -152,50 +116,50 @@ public class Resources {
 	public static final String FRMCLIENTE_LBL_SEXO = "FRMCLIENTE_LBL_SEXO";
 	public static final String FRMCLIENTE_LBL_SITUACAO = "FRMCLIENTE_LBL_SITUACAO";
 	public static final String FRMCLIENTE_LBL_EMAIL = "FRMCLIENTE_LBL_EMAIL";
-	public static final String TBLENTRADA_PESQUISA = "TBLENTRADA_PESQUISA";
-	public static final String TBLENTRADA_CODIGO = "TBLENTRADA_CODIGO";
-	public static final String TBLENTRADA_BARRAS = "TBLENTRADA_BARRAS";
-	public static final String TBLENTRADA_PRODUTO = "TBLENTRADA_PRODUTO";
-	public static final String TBLENTRADA_UNIDADE = "TBLENTRADA_UNIDADE";
-	public static final String TBLENTRADA_QUANTIDADE = "TBLENTRADA_QUANTIDADE";
-	public static final String TBLENTRADA_VALOR_UNITARIO = "TBLENTRADA_VALOR_UNITARIO";
-	public static final String TBLENTRADA_VALOR_TOTAL = "TBLENTRADA_VALOR_TOTAL";
 
-	public static final String TBLMODULOS_CODIGO = "TBLMODULOS_CODIGO";
-	public static final String TBLMODULOS_IP = "TBLMODULOS_IP";
-	public static final String TBLMODULOS_DESCRICAO = "TBLMODULOS_DESCRICAO";
-	public static final String TBLMODULOS_DESACOPLADO = "TBLMODULOS_DESACOPLADO";
-	public static final String TBLMODULOS_GERENCIADOR = "TBLMODULOS_GERENCIADOR";
-	public static final String TBLMODULOS_CONFIGURACAO = "TBLMODULOS_CONFIGURACAO";
-	public static final String FRMLIMITE_TITLE = "FRMLIMITE_TITLE";
-	public static final String FRMMODULOS_BTN_SALVAR = "FRMMODULOS_BTN_SALVAR";
-	public static final String FRMMODULOS_BTN_CANCELAR = "FRMMODULOS_BTN_CANCELAR";
-	public static final String FRMENTRADANOTA_LB_CODIGO = "FRMENTRADANOTA_LB_CODIGO";
-	public static final String FRMENTRADANOTA_LB_NATUREZA_OPERACAO = "FRMENTRADANOTA_LB_NATUREZA_OPERACAO";
-	public static final String FRMENTRADANOTA_LB_NUMERO_NOTA = "FRMENTRADANOTA_LB_NUMERO_NOTA";
-	public static final String FRMENTRADANOTA_LB_DATA_EMISSAO = "FRMENTRADANOTA_LB_DATA_EMISSAO";
-	public static final String FRMENTRADANOTA_LB_DATA_SAIDA = "FRMENTRADANOTA_LB_DATA_SAIDA";
-	public static final String FRMENTRADANOTA_LB_EMITENTE = "FRMENTRADANOTA_LB_EMITENTE";
+	public static final String FRMPROCEDENCIA_TITLE = "FRMPROCEDENCIA_TITLE";
+	public static final String FRMPROCEDENCIA_LB_CODIGO = "FRMPROCEDENCIA_LB_CODIGO";
+	public static final String FRMPROCEDENCIA_LB_DESCRICAO = "FRMPROCEDENCIA_LB_DESCRICAO";
 
+	public static final String FRMPACIENTE_TITLE = "FRMPACIENTE_TITLE";
+	public static final String FRMPACIENTE_LB_CODIGO = "FRMPACIENTE_LB_CODIGO";
+	public static final String FRMPACIENTE_LB_CLIENTE = "FRMPACIENTE_LB_CLIENTE";
+	public static final String FRMPACIENTE_LB_PROCEDENCIA = "FRMPACIENTE_LB_PROCEDENCIA";
+	public static final String FRMPACIENTE_LB_ADMISSAO = "FRMPACIENTE_LB_ADMISSAO";
+
+	public static final String FRMFUNCIONARIO_TITLE = "FRMFUNCIONARIO_TITLE";
+	public static final String FRMFUNCIONARIO_LB_CODIGO = "FRMFUNCIONARIO_LB_CODIGO";
+	public static final String FRMFUNCIONARIO_LB_CLIENTE = "FRMFUNCIONARIO_LB_CLIENTE";
+	public static final String FRMFUNCIONARIO_LB_SALARIO = "FRMFUNCIONARIO_LB_SALARIO";
+	public static final String FRMFUNCIONARIO_LB_ADMISSAO = "FRMFUNCIONARIO_LB_ADMISSAO";
+	public static final String FRMFUNCIONARIO_LB_CARGO = "FRMFUNCIONARIO_LB_CARGO";
+	public static final String FRMFUNCIONARIO_LB_DEMISSAO = "FRMFUNCIONARIO_LB_DEMISSAO";
 	static {
 		try {
 			File arquivoConfiguracao = new File(Configuracoes.RESOURCES);
 
 			if (!arquivoConfiguracao.exists()) {
-				FileUtils.writeStringToFile(arquivoConfiguracao, "pt_br.properties", charset);
+				FileUtils.writeStringToFile(arquivoConfiguracao, "pt_br.properties", StandardCharsets.UTF_8);
 			}
 
-			String arquivoConfig = FileUtils.readFileToString(arquivoConfiguracao, charset);
+			String arquivoConfig = FileUtils.readFileToString(arquivoConfiguracao, StandardCharsets.UTF_8);
 
 			mapaValores = new Properties();
 
 			mapaValores.load(new InputStreamReader(
-					new FileInputStream(Configuracoes.PATH_RESOURCES + Configuracoes.SEPARATOR + arquivoConfig),
-					charset));
+					new FileInputStream(Configuracoes.FOLDER_RESOURCES + Configuracoes.SEPARATOR + arquivoConfig),
+					StandardCharsets.UTF_8));
 
 		} catch (IOException e) {
 
+			log.error("Erro ao malipular arquivo de resources", e);
 		}
+	}
+
+	public static String translate(String menu, String defaultStr) {
+
+		return mapaValores.getProperty(menu, defaultStr);
+
 	}
 
 	public static String translate(String menu) {

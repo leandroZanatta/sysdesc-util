@@ -5,6 +5,9 @@ import java.math.RoundingMode;
 
 public class BigDecimalUtil {
 
+	private BigDecimalUtil() {
+	}
+
 	public static final BigDecimal ZERO = BigDecimal.valueOf(0);
 
 	public static boolean isNullOrZero(BigDecimal value) {
@@ -35,4 +38,5 @@ public class BigDecimalUtil {
 	public static boolean diferente(BigDecimal valor1, BigDecimal valor2) {
 		return valor1.setScale(2, RoundingMode.HALF_EVEN).compareTo(valor2.setScale(2, RoundingMode.HALF_EVEN)) != 0;
 	}
+
 }

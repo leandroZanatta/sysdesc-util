@@ -7,7 +7,13 @@ public enum TipoStatusBoletoEnum {
 
     GERADO(1L, "Gerado"),
 
-    ENVIANDO_REMESSA(2L, "Enviando remessa");
+    REMESSA_GERADA(2L, "Remessa Gerada"),
+
+    REMESSA_ENVIADA(3L, "Remessa Enviada"),
+
+    REMESSA_PROCESSADA(4L, "Remessa Processada"),
+
+    BAIXADO_MANUALMENTE(5L, "Baixado Manualmente"),;
 
     private static Map<Long, TipoStatusBoletoEnum> mapa = new HashMap<>();
 

@@ -5,7 +5,9 @@ import java.util.Map;
 
 public enum TipoStatusRemessaEnum {
 
-    GERADO(1L, "Gerado");
+    GERADO(1L, "Gerado"),
+
+    ENVIADO(2L, "Enviado");
 
     private static Map<Long, TipoStatusRemessaEnum> mapa = new HashMap<>();
 

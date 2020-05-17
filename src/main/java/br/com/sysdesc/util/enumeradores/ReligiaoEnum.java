@@ -5,47 +5,49 @@ import java.util.Map;
 
 public enum ReligiaoEnum {
 
-	COTOLICO(1L, "Católico"),
+    COTOLICO(1L, "Católico"),
 
-	EVANGELICO(2L, "Evangélico"),
+    EVANGELICO(2L, "Evangélico"),
 
-	ESPIRITA(3L, "Espírita"),
+    ESPIRITA(3L, "Espírita"),
 
-	OUTRO(4L, "Outro");
+    MASSON(4L, "Massônico"),
 
-	private static Map<Long, ReligiaoEnum> mapa = new HashMap<>();
+    OUTRO(5L, "Outro");
 
-	static {
+    private static Map<Long, ReligiaoEnum> mapa = new HashMap<>();
 
-		for (ReligiaoEnum programa : ReligiaoEnum.values()) {
-			mapa.put(programa.getCodigo(), programa);
-		}
-	}
+    static {
 
-	private final Long codigo;
+        for (ReligiaoEnum programa : ReligiaoEnum.values()) {
+            mapa.put(programa.getCodigo(), programa);
+        }
+    }
 
-	private final String descricao;
+    private final Long codigo;
 
-	ReligiaoEnum(Long codigo, String descricao) {
-		this.codigo = codigo;
-		this.descricao = descricao;
-	}
+    private final String descricao;
 
-	public Long getCodigo() {
-		return codigo;
-	}
+    ReligiaoEnum(Long codigo, String descricao) {
+        this.codigo = codigo;
+        this.descricao = descricao;
+    }
 
-	public String getDescricao() {
-		return descricao;
-	}
+    public Long getCodigo() {
+        return codigo;
+    }
 
-	public static ReligiaoEnum findByCodigo(Long codigoPrograma) {
-		return mapa.get(codigoPrograma);
-	}
+    public String getDescricao() {
+        return descricao;
+    }
 
-	@Override
-	public String toString() {
+    public static ReligiaoEnum findByCodigo(Long codigoPrograma) {
+        return mapa.get(codigoPrograma);
+    }
 
-		return descricao;
-	}
+    @Override
+    public String toString() {
+
+        return descricao;
+    }
 }

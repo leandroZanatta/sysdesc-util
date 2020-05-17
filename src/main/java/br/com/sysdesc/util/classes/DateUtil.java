@@ -171,4 +171,14 @@ public class DateUtil {
         return !menorOuIgual(date1, date2);
     }
 
+    public static Integer getYear(Date dataAtual) {
+
+        return getCalendar(dataAtual).get(Calendar.YEAR);
+    }
+
+    public static Integer getMonth(Date dataAtual) {
+
+        return getCalendar(dataAtual).get(Calendar.MONTH);
+    }
+
 }

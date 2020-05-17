@@ -26,6 +26,10 @@ public enum TipoProgramaContasReceberEnum {
         return codigo;
     }
 
+    public String getDescricao() {
+        return descricao;
+    }
+
     @Override
     public String toString() {
         return descricao;

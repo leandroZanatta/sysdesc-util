@@ -5,7 +5,7 @@
 
 	<groupId>br.com.sysdesc</groupId>
 	<artifactId>sysdesc-util</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 
 	<name>SysDesc Util</name>
 	<description>Utilitário do Aplicativo</description>

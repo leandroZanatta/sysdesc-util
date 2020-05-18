@@ -5,7 +5,9 @@ import java.util.Map;
 
 public enum TipoProgramaContasReceberEnum {
 
-    MENSALIDADE("MENS", "Mensalidade");
+    MENSALIDADE("MENS", "Mensalidade"),
+
+    CURRATIVOS("CUR", "Currativos");
 
     private static Map<String, TipoProgramaContasReceberEnum> mapa = new HashMap<>();
 

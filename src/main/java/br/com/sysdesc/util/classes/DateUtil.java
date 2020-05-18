@@ -11,162 +11,164 @@ import java.util.List;
 
 public class DateUtil {
 
-	private DateUtil() {
-	}
+    private DateUtil() {
+    }
 
-	public static final String FORMATO_DD_MM = "dd/MM";
-	public static final String FORMATO_MM_YYYYY = "MM/YYYY";
-	public static final String FORMATO_DD_MM_YYY = "dd/MM/yyyy";
-	public static final String FORMATO_DD_MM_YYYY_HH_MM_SS = "dd/MM/yyyy HH:mm:ss";
-	public static final String FORMATO_YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
-	private static final ZoneId FUSO_HORARIO = ZoneId.systemDefault();
-	private static final List<String> FERIADOS_FIXOS = Arrays.asList("01/01", "21/04", "01/05", "07/09", "12/10",
-			"02/11", "15/11", "25/12");
-	private static final List<Integer> DIAS_UTEIS = Arrays.asList(1, 2, 3, 4, 5);
+    public static final String FORMATO_DD_MM = "dd/MM";
+    public static final String FORMATO_MM_YYYYY = "MM/YYYY";
+    public static final String FORMATO_DD_MM_YYY = "dd/MM/yyyy";
+    public static final String FORMATO_DD_MM_YYYY_HH_MM_SS = "dd/MM/yyyy HH:mm:ss";
+    public static final String FORMATO_YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
+    private static final ZoneId FUSO_HORARIO = ZoneId.systemDefault();
+    private static final List<String> FERIADOS_FIXOS = Arrays.asList("01/01", "21/04", "01/05", "07/09", "12/10", "02/11", "15/11", "25/12");
+    private static final List<Integer> DIAS_UTEIS = Arrays.asList(1, 2, 3, 4, 5);
 
-	public static Date parse(String formato, String valor) {
+    public static Date parse(String formato, String valor) {
 
-		try {
-			return new SimpleDateFormat(formato).parse(valor);
-		} catch (ParseException e) {
-			return null;
-		}
-	}
+        try {
+            return new SimpleDateFormat(formato).parse(valor);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
 
-	public static String format(String formato, Date valor) {
+    public static String format(String formato, Date valor) {
 
-		return new SimpleDateFormat(formato).format(valor);
-	}
+        return new SimpleDateFormat(formato).format(valor);
+    }
 
-	public static Date getInitialDate(Date data) {
+    public static Date getInitialDate(Date data) {
 
-		LocalDateTime currentDateTime = LocalDateTime.ofInstant(data.toInstant(), FUSO_HORARIO);
+        LocalDateTime currentDateTime = LocalDateTime.ofInstant(data.toInstant(), FUSO_HORARIO);
 
-		return Date.from(
-				currentDateTime.withHour(0).withMinute(0).withSecond(0).withNano(0).atZone(FUSO_HORARIO).toInstant());
-	}
+        return Date.from(currentDateTime.withHour(0).withMinute(0).withSecond(0).withNano(0).atZone(FUSO_HORARIO).toInstant());
+    }
 
-	public static Date getFinalDate(Date data) {
-		LocalDateTime currentDateTime = LocalDateTime.ofInstant(data.toInstant(), FUSO_HORARIO);
+    public static Date getFinalDate(Date data) {
+        LocalDateTime currentDateTime = LocalDateTime.ofInstant(data.toInstant(), FUSO_HORARIO);
 
-		return Date.from(currentDateTime.withHour(23).withMinute(59).withSecond(59).withNano(999).atZone(FUSO_HORARIO)
-				.toInstant());
+        return Date.from(currentDateTime.withHour(23).withMinute(59).withSecond(59).withNano(999).atZone(FUSO_HORARIO).toInstant());
 
-	}
+    }
 
-	public static Date addDays(Date data, Long dias) {
+    public static Date addDays(Date data, Long dias) {
 
-		return addDate(data, dias);
-	}
+        return addDate(data, dias);
+    }
 
-	public static Date subtractDays(Date data, Long dias) {
+    public static Date subtractDays(Date data, Long dias) {
 
-		return addDate(data, -dias);
-	}
+        return addDate(data, -dias);
+    }
 
-	public static boolean menorOuIgual(Date date1, Date date2) {
+    public static boolean menorOuIgual(Date date1, Date date2) {
 
-		return date1.getTime() <= date2.getTime();
-	}
+        return date1.getTime() <= date2.getTime();
+    }
 
-	public static boolean isLastDayOfMonth(Date date) {
+    public static boolean menor(Date date1, Date date2) {
 
-		Calendar calendar = getCalendar(date);
+        return date1.getTime() < date2.getTime();
+    }
 
-		return calendar.get(Calendar.DATE) == calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-	}
+    public static boolean isLastDayOfMonth(Date date) {
 
-	public static boolean isFirstDayOfMonth(Date date) {
+        Calendar calendar = getCalendar(date);
 
-		return getCalendar(date).get(Calendar.DATE) == 1;
-	}
+        return calendar.get(Calendar.DATE) == calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
 
-	public static boolean isDayOrLastDayOfMonth(Date date, Long diavalidar) {
+    public static boolean isFirstDayOfMonth(Date date) {
 
-		Calendar calendar = getCalendar(date);
+        return getCalendar(date).get(Calendar.DATE) == 1;
+    }
 
-		int dia = calendar.get(Calendar.DATE);
-		int ultimoDiaMes = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    public static boolean isDayOrLastDayOfMonth(Date date, Long diavalidar) {
 
-		return dia == diavalidar || (ultimoDiaMes < diavalidar && dia == ultimoDiaMes);
-	}
+        Calendar calendar = getCalendar(date);
 
-	public static Integer getDayOfMonth(Date date) {
+        int dia = calendar.get(Calendar.DATE);
+        int ultimoDiaMes = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-		return getCalendar(date).get(Calendar.DATE);
-	}
+        return dia == diavalidar || (ultimoDiaMes < diavalidar && dia == ultimoDiaMes);
+    }
 
-	public static Integer getLastDayOfMonth(Date date) {
+    public static Integer getDayOfMonth(Date date) {
 
-		return getCalendar(date).getActualMaximum(Calendar.DAY_OF_MONTH);
-	}
+        return getCalendar(date).get(Calendar.DATE);
+    }
 
-	public static Date setDay(Date date, Long dia) {
-		Calendar calendar = getCalendar(date);
+    public static Integer getLastDayOfMonth(Date date) {
 
-		calendar.set(Calendar.DATE, dia.intValue());
+        return getCalendar(date).getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
 
-		return calendar.getTime();
-	}
+    public static Date setDay(Date date, Long dia) {
+        Calendar calendar = getCalendar(date);
 
-	public static Date obterDiaUtil(Date date) {
+        calendar.set(Calendar.DATE, dia.intValue());
 
-		while (!isDiaUtil(date)) {
-			date = addDays(date, 1L);
-		}
+        return calendar.getTime();
+    }
 
-		return date;
-	}
+    public static Date obterDiaUtil(Date date) {
 
-	private static boolean isDiaUtil(Date date) {
+        while (!isDiaUtil(date)) {
+            date = addDays(date, 1L);
+        }
 
-		Calendar calendar = getCalendar(date);
+        return date;
+    }
 
-		if (!DIAS_UTEIS.contains(calendar.get(Calendar.DAY_OF_WEEK))) {
-			return false;
-		}
+    private static boolean isDiaUtil(Date date) {
 
-		if (FERIADOS_FIXOS.contains(new SimpleDateFormat(FORMATO_DD_MM).format(date))) {
-			return false;
-		}
+        Calendar calendar = getCalendar(date);
 
-		return true;
-	}
+        if (!DIAS_UTEIS.contains(calendar.get(Calendar.DAY_OF_WEEK))) {
+            return false;
+        }
 
-	public static Date addMonth(Date data, Long meses) {
+        if (FERIADOS_FIXOS.contains(new SimpleDateFormat(FORMATO_DD_MM).format(date))) {
+            return false;
+        }
 
-		Calendar calendar = getCalendar(data);
+        return true;
+    }
 
-		calendar.add(Calendar.MONTH, meses.intValue());
+    public static Date addMonth(Date data, Long meses) {
 
-		return calendar.getTime();
-	}
+        Calendar calendar = getCalendar(data);
 
-	public static Integer getDaysOfDates(Date dataInicial, Date dataFinal) {
+        calendar.add(Calendar.MONTH, meses.intValue());
 
-		return getCalendar(dataFinal).get(Calendar.DAY_OF_YEAR) - getCalendar(dataInicial).get(Calendar.DAY_OF_YEAR);
-	}
+        return calendar.getTime();
+    }
 
-	private static Date addDate(Date data, Long dias) {
+    public static Integer getDaysOfDates(Date dataInicial, Date dataFinal) {
 
-		Calendar calendar = getCalendar(data);
+        return getCalendar(dataFinal).get(Calendar.DAY_OF_YEAR) - getCalendar(dataInicial).get(Calendar.DAY_OF_YEAR);
+    }
 
-		calendar.add(Calendar.DATE, dias.intValue());
+    private static Date addDate(Date data, Long dias) {
 
-		return calendar.getTime();
-	}
+        Calendar calendar = getCalendar(data);
 
-	private static Calendar getCalendar(Date date) {
+        calendar.add(Calendar.DATE, dias.intValue());
 
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
+        return calendar.getTime();
+    }
 
-		return calendar;
-	}
+    private static Calendar getCalendar(Date date) {
 
-	public static boolean maior(Date date1, Date date2) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
 
-		return !menorOuIgual(date1, date2);
-	}
+        return calendar;
+    }
+
+    public static boolean maior(Date date1, Date date2) {
+
+        return !menorOuIgual(date1, date2);
+    }
 
 }

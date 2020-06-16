@@ -7,7 +7,13 @@ public enum TipoProgramaContasReceberEnum {
 
     MENSALIDADE("MENS", "Mensalidade"),
 
-    CURRATIVOS("CUR", "Currativos");
+    CURRATIVOS("CUR", "Materiais para Curativos"),
+
+    MEDICAMENTOS("MED", "Medicamentos"),
+
+    SONDAS("SON", "Sonda"),
+
+    EXAMES("EXA", "Exames");
 
     private static Map<String, TipoProgramaContasReceberEnum> mapa = new HashMap<>();
 

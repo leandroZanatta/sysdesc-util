@@ -9,16 +9,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PesquisaRemessaVO {
+public class PesquisaRemessaRetornoVO {
 
-    private Long numeroRemessa;
+	private Long numeroDocumento;
 
-    private Long codigoBanco;
+	private Long codigoBanco;
 
-    private Long codigoStatus;
+	private Long codigoStatus;
 
-    private Date dataInicial;
+	private Date dataInicial;
 
-    private Date dataFinal;
+	private Date dataFinal;
 
 }

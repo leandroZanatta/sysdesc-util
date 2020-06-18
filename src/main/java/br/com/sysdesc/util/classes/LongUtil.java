@@ -2,21 +2,26 @@ package br.com.sysdesc.util.classes;
 
 public class LongUtil {
 
-    private LongUtil() {
-    }
+	private LongUtil() {
+	}
 
-    public static boolean isNullOrZero(Long value) {
+	public static boolean isNullOrZero(Long value) {
 
-        return value == null || value.equals(0L);
-    }
+		return value == null || value.equals(0L);
+	}
 
-    public static boolean maior(Long valor1, Long valor2) {
+	public static boolean maior(Long valor1, Long valor2) {
 
-        if (valor1 == null || valor2 == null) {
-            return false;
-        }
+		if (valor1 == null || valor2 == null) {
+			return false;
+		}
 
-        return valor1 > valor2;
-    }
+		return valor1 > valor2;
+	}
+
+	public static Long parseLong(String value) {
+
+		return Long.valueOf(value.replaceAll("[^0-9]", ""));
+	}
 
 }

@@ -3,23 +3,19 @@ package br.com.sysdesc.util.enumeradores;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum TipoStatusBoletoEnum {
+public enum TipoStatusRetornoEnum {
 
-	GERADO(1L, "Gerado"),
+	IMPORTADO(1L, "Importado"),
 
-	REMESSA_GERADA(2L, "Remessa Gerada"),
+	PROCESSADO(2L, "Processado"),
 
-	REMESSA_ENVIADA(3L, "Remessa Enviada"),
+	ERRO(3L, "Erro");
 
-	AUTORIZADO(4L, "Autorizado"),
-
-	BAIXADO_MANUALMENTE(5L, "Baixado Manualmente");
-
-	private static Map<Long, TipoStatusBoletoEnum> mapa = new HashMap<>();
+	private static Map<Long, TipoStatusRetornoEnum> mapa = new HashMap<>();
 
 	static {
 
-		for (TipoStatusBoletoEnum programa : TipoStatusBoletoEnum.values()) {
+		for (TipoStatusRetornoEnum programa : TipoStatusRetornoEnum.values()) {
 			mapa.put(programa.getCodigo(), programa);
 		}
 	}
@@ -28,7 +24,7 @@ public enum TipoStatusBoletoEnum {
 
 	private final String descricao;
 
-	TipoStatusBoletoEnum(Long codigo, String descricao) {
+	TipoStatusRetornoEnum(Long codigo, String descricao) {
 		this.codigo = codigo;
 		this.descricao = descricao;
 	}
@@ -41,7 +37,7 @@ public enum TipoStatusBoletoEnum {
 		return descricao;
 	}
 
-	public static TipoStatusBoletoEnum findByCodigo(Long codigoPrograma) {
+	public static TipoStatusRetornoEnum findByCodigo(Long codigoPrograma) {
 		return mapa.get(codigoPrograma);
 	}
 

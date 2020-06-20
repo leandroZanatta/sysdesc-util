@@ -67,6 +67,11 @@
 			<groupId>com.mysema.querydsl</groupId>
 			<artifactId>querydsl-sql</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>

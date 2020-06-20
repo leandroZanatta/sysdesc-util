@@ -11,76 +11,76 @@ import br.com.sysdesc.util.classes.StringUtil;
 
 public class Tag {
 
-    private final String element;
+	private final String element;
 
-    private final boolean possuiContent;
+	private final boolean possuiContent;
 
-    private String data = StringUtil.STRING_VAZIA;
+	private String data = StringUtil.STRING_VAZIA;
 
-    private Map<String, String> parametros = new HashMap<>();
+	private Map<String, String> parametros = new HashMap<>();
 
-    private List<Tag> content = new ArrayList<>();
+	private List<Tag> content = new ArrayList<>();
 
-    public Tag(String element, boolean possuiContent) {
+	public Tag(String element, boolean possuiContent) {
 
-        this.element = element;
-        this.possuiContent = possuiContent;
-    }
+		this.element = element;
+		this.possuiContent = possuiContent;
+	}
 
-    public void addData(String data) {
+	public void addData(String data) {
 
-        this.data = data;
-    }
+		this.data = data;
+	}
 
-    public void addParameter(String parameter, String value) {
+	public void addParameter(String parameter, String value) {
 
-        parametros.put(parameter, value);
-    }
+		parametros.put(parameter, value);
+	}
 
-    public void appendContent(Tag content) {
+	public void appendContent(Tag content) {
 
-        if (this.possuiContent) {
-            this.content.add(content);
-        }
-    }
+		if (this.possuiContent) {
+			this.content.add(content);
+		}
+	}
 
-    public void insertContent(Tag content) {
+	public void insertContent(Tag content) {
 
-        if (this.possuiContent) {
-            this.content.add(0, content);
-        }
-    }
+		if (this.possuiContent) {
+			this.content.add(0, content);
+		}
+	}
 
-    public String build() {
+	public String build() {
 
-        if (!this.possuiContent) {
+		if (!this.possuiContent) {
 
-            return String.format("<%s/>", this.element);
-        }
+			return String.format("<%s/>", this.element);
+		}
 
-        StringBuilder contentString = new StringBuilder(data);
+		StringBuilder contentString = new StringBuilder(data);
 
-        if (this.possuiContent && !ListUtil.isNullOrEmpty(content)) {
+		if (!ListUtil.isNullOrEmpty(content)) {
 
-            this.content.forEach(content -> contentString.append(content.build()));
-        }
+			this.content.forEach(chield -> contentString.append(chield.build()));
+		}
 
-        return String.format("<%s%s>%s</%s>", this.element, this.montarParametros(), contentString.toString(), this.element);
-    }
+		return String.format("<%s%s>%s</%s>", this.element, this.montarParametros(), contentString.toString(), this.element);
+	}
 
-    private String montarParametros() {
+	private String montarParametros() {
 
-        StringBuilder stringBuilder = new StringBuilder("");
+		StringBuilder stringBuilder = new StringBuilder("");
 
-        for (Entry<String, String> entry : parametros.entrySet()) {
+		for (Entry<String, String> entry : parametros.entrySet()) {
 
-            StringBuilder sb = new StringBuilder(" ");
+			StringBuilder sb = new StringBuilder(" ");
 
-            sb.append(entry.getKey()).append("=\"").append(entry.getValue()).append("\"");
+			sb.append(entry.getKey()).append("=\"").append(entry.getValue()).append("\"");
 
-            stringBuilder.append(sb);
-        }
+			stringBuilder.append(sb);
+		}
 
-        return stringBuilder.toString();
-    }
+		return stringBuilder.toString();
+	}
 }

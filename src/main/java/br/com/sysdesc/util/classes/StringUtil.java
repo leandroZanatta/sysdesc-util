@@ -63,7 +63,7 @@ public class StringUtil {
 
 		StringBuilder stringBuilder = new StringBuilder();
 
-		Arrays.asList(params).forEach(param -> stringBuilder.append(param));
+		Arrays.asList(params).forEach(stringBuilder::append);
 
 		return stringBuilder.toString();
 	}

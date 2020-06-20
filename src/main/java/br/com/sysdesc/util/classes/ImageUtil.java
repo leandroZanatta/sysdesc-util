@@ -16,98 +16,98 @@ import br.com.sysdesc.util.vo.DimensionsVO;
 
 public class ImageUtil {
 
-    private ImageUtil() {
-    }
+	private ImageUtil() {
+	}
 
-    public static ImageIcon resize(String source, Integer width, Integer height) {
+	public static ImageIcon resize(String source, Integer width, Integer height) {
 
-        return resize(new File(Configuracoes.FOLDER_IMAGE + File.separator + source), width, height);
-    }
+		return resize(new File(Configuracoes.FOLDER_IMAGE + File.separator + source), width, height);
+	}
 
-    public static ImageIcon resize(File source, Integer width, Integer height) {
+	public static ImageIcon resize(File source, Integer width, Integer height) {
 
-        try {
-            return resize(ImageIO.read(source), width, height);
-        } catch (IOException e) {
-            return null;
-        }
-    }
+		try {
+			return resize(ImageIO.read(source), width, height);
+		} catch (IOException e) {
+			return null;
+		}
+	}
 
-    public static ImageIcon resize(byte[] source, Integer width, Integer height) {
+	public static ImageIcon resize(byte[] source, Integer width, Integer height) {
 
-        try {
+		try {
 
-            return resize(ImageIO.read(new ByteArrayInputStream(source)), width, height);
+			return resize(ImageIO.read(new ByteArrayInputStream(source)), width, height);
 
-        } catch (IOException e) {
-            return null;
-        }
-    }
+		} catch (IOException e) {
+			return null;
+		}
+	}
 
-    public static byte[] resizeToBytes(File source, String formato, Integer width, Integer height) throws IOException {
+	public static byte[] resizeToBytes(File source, String formato, Integer width, Integer height) throws IOException {
 
-        return resizeToBytes(resizeToImage(source, width, height), formato, width, height);
-    }
+		return resizeToBytes(resizeToImage(source, width, height), formato);
+	}
 
-    public static byte[] resizeToBytes(BufferedImage imagem, String formato, Integer width, Integer height) throws IOException {
+	public static byte[] resizeToBytes(BufferedImage imagem, String formato) throws IOException {
 
-        try (ByteArrayOutputStream arrayBytes = new ByteArrayOutputStream()) {
+		try (ByteArrayOutputStream arrayBytes = new ByteArrayOutputStream()) {
 
-            ImageIO.write(imagem, formato, arrayBytes);
+			ImageIO.write(imagem, formato, arrayBytes);
 
-            return arrayBytes.toByteArray();
-        }
-    }
+			return arrayBytes.toByteArray();
+		}
+	}
 
-    public static ImageIcon resize(BufferedImage customImage, Integer width, Integer height) {
+	public static ImageIcon resize(BufferedImage customImage, Integer width, Integer height) {
 
-        return new ImageIcon(resizeToImage(customImage, width, height));
-    }
+		return new ImageIcon(resizeToImage(customImage, width, height));
+	}
 
-    public static BufferedImage resizeToImage(BufferedImage customImage, Integer width, Integer height) {
+	public static BufferedImage resizeToImage(BufferedImage customImage, Integer width, Integer height) {
 
-        BufferedImage resizedImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage resizedImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
-        Graphics2D g2 = resizedImg.createGraphics();
+		Graphics2D g2 = resizedImg.createGraphics();
 
-        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2.drawImage(customImage, 0, 0, width, height, null);
-        g2.dispose();
+		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g2.drawImage(customImage, 0, 0, width, height, null);
+		g2.dispose();
 
-        return resizedImg;
-    }
+		return resizedImg;
+	}
 
-    public static BufferedImage resizeToImage(File source, Integer width, Integer height) throws IOException {
+	public static BufferedImage resizeToImage(File source, Integer width, Integer height) throws IOException {
 
-        BufferedImage resizedImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage resizedImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
-        Graphics2D g2 = resizedImg.createGraphics();
+		Graphics2D g2 = resizedImg.createGraphics();
 
-        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2.drawImage(new ImageIcon(source.toURI().toURL()).getImage(), 0, 0, width, height, null);
-        g2.dispose();
+		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g2.drawImage(new ImageIcon(source.toURI().toURL()).getImage(), 0, 0, width, height, null);
+		g2.dispose();
 
-        return resizedImg;
-    }
+		return resizedImg;
+	}
 
-    public static ImageIcon resize(Class<?> resource, String string) {
+	public static ImageIcon resize(Class<?> resource, String string) {
 
-        return new ImageIcon(resource.getClassLoader().getResource(string));
-    }
+		return new ImageIcon(resource.getClassLoader().getResource(string));
+	}
 
-    public static DimensionsVO calculateDimension(int width, int height) {
+	public static DimensionsVO calculateDimension(int width, int height) {
 
-        if (width < height) {
+		if (width < height) {
 
-            return new DimensionsVO(width, width);
-        }
+			return new DimensionsVO(width, width);
+		}
 
-        return new DimensionsVO(height, height);
-    }
+		return new DimensionsVO(height, height);
+	}
 
-    public static BufferedImage cortar(BufferedImage imagem, int x, int y, int width, int height) {
+	public static BufferedImage cortar(BufferedImage imagem, int x, int y, int width, int height) {
 
-        return imagem.getSubimage(x, y, width, height);
-    }
+		return imagem.getSubimage(x, y, width, height);
+	}
 
 }

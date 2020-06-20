@@ -4,17 +4,20 @@ import java.text.NumberFormat;
 
 public class NumericFormatter {
 
-    private static NumberFormat numberFormat = NumberFormat.getNumberInstance();
+	private NumericFormatter() {
+	}
 
-    static {
-        numberFormat.setMaximumFractionDigits(0);
-        numberFormat.setMinimumFractionDigits(0);
-        numberFormat.setGroupingUsed(true);
-    }
+	private static NumberFormat numberFormat = NumberFormat.getNumberInstance();
 
-    public static String format(Number number) {
+	static {
+		numberFormat.setMaximumFractionDigits(0);
+		numberFormat.setMinimumFractionDigits(0);
+		numberFormat.setGroupingUsed(true);
+	}
 
-        return numberFormat.format(number);
-    }
+	public static String format(Number number) {
+
+		return numberFormat.format(number);
+	}
 
 }

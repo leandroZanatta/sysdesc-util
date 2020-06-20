@@ -4,17 +4,20 @@ import java.text.NumberFormat;
 
 public class MoneyFormatter {
 
-    private static NumberFormat numberFormat = NumberFormat.getNumberInstance();
+	private MoneyFormatter() {
+	}
 
-    static {
-        numberFormat.setMaximumFractionDigits(2);
-        numberFormat.setMinimumFractionDigits(2);
-        numberFormat.setGroupingUsed(true);
-    }
+	private static NumberFormat numberFormat = NumberFormat.getNumberInstance();
 
-    public static String format(Number number) {
+	static {
+		numberFormat.setMaximumFractionDigits(2);
+		numberFormat.setMinimumFractionDigits(2);
+		numberFormat.setGroupingUsed(true);
+	}
 
-        return numberFormat.format(number);
-    }
+	public static String format(Number number) {
+
+		return numberFormat.format(number);
+	}
 
 }

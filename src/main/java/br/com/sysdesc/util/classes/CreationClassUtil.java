@@ -16,100 +16,106 @@ import com.google.googlejavaformat.java.Formatter;
 import br.com.sysdesc.util.enumeradores.ModificadoresEnum;
 import br.com.sysdesc.util.resources.Configuracoes;
 import br.com.sysdesc.util.vo.CriacaoClasseVO;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class CreationClassUtil {
 
-    private static final String FECHA_CHAVE = "}";
-    private static final String PONTO_VIRGULA = ";";
+	private CreationClassUtil() {
+	}
 
-    public static Class<?> createClas(List<CriacaoClasseVO> criacaoClasseVOs, String name) {
+	private static final String FECHA_CHAVE = "}";
+	private static final String PONTO_VIRGULA = ";";
 
-        File root = new File(Configuracoes.FOLDER_PESQUISAS);
+	public static Class<?> createClas(List<CriacaoClasseVO> criacaoClasseVOs, String name) {
 
-        if (!root.exists()) {
-            root.mkdirs();
-        }
+		File root = new File(Configuracoes.FOLDER_PESQUISAS);
 
-        File arquivoClasse = new File(Configuracoes.FOLDER_PESQUISAS + "\\" + name + ".java");
+		if (!root.exists()) {
+			root.mkdirs();
+		}
 
-        create(arquivoClasse, criacaoClasseVOs, name);
+		File arquivoClasse = new File(Configuracoes.FOLDER_PESQUISAS + "\\" + name + ".java");
 
-        compile(arquivoClasse);
+		create(arquivoClasse, criacaoClasseVOs, name);
 
-        return instance(root, name);
-    }
+		compile(arquivoClasse);
 
-    private static void create(File arquivo, List<CriacaoClasseVO> criacaoClasseVOs, String name) {
-        try {
+		return instance(root, name);
+	}
 
-            StringBuilder stringBuilder = new StringBuilder();
+	private static void create(File arquivo, List<CriacaoClasseVO> criacaoClasseVOs, String name) {
+		try {
 
-            organizeImports(stringBuilder, criacaoClasseVOs);
+			StringBuilder stringBuilder = new StringBuilder();
 
-            stringBuilder.append("public class " + name + " implements Serializable{");
+			organizeImports(stringBuilder, criacaoClasseVOs);
 
-            StringBuilder getterSetter = new StringBuilder();
+			stringBuilder.append("public class " + name + " implements Serializable{");
 
-            criacaoClasseVOs.forEach(x -> {
+			StringBuilder getterSetter = new StringBuilder();
 
-                stringBuilder.append(ModificadoresEnum.getModifiers(x.getModificadores()));
+			criacaoClasseVOs.forEach(x -> {
 
-                stringBuilder.append(" ").append(x.getTipoMetodo().getSimpleName()).append(" ").append(x.getNomeMetodo()).append(PONTO_VIRGULA);
+				stringBuilder.append(ModificadoresEnum.getModifiers(x.getModificadores()));
 
-                if (x.isGerarGetterSetter()) {
+				stringBuilder.append(" ").append(x.getTipoMetodo().getSimpleName()).append(" ").append(x.getNomeMetodo()).append(PONTO_VIRGULA);
 
-                    getterSetter.append("public String get").append(x.getNomeMetodo().substring(0, 1).toUpperCase())
-                            .append(x.getNomeMetodo().substring(1, x.getNomeMetodo().length())).append("(){").append("return this.")
-                            .append(x.getNomeMetodo()).append(x.getTipoMetodo().equals(String.class) ? "" : ".toString()").append(PONTO_VIRGULA)
-                            .append(FECHA_CHAVE);
+				if (x.isGerarGetterSetter()) {
 
-                    getterSetter.append("public void set").append(x.getNomeMetodo().substring(0, 1).toUpperCase())
-                            .append(x.getNomeMetodo().substring(1, x.getNomeMetodo().length())).append("(").append(x.getTipoMetodo().getSimpleName())
-                            .append(" ").append(x.getNomeMetodo()).append("){").append("this.").append(x.getNomeMetodo()).append("=")
-                            .append(x.getNomeMetodo()).append(PONTO_VIRGULA).append(FECHA_CHAVE);
+					getterSetter.append("public String get").append(x.getNomeMetodo().substring(0, 1).toUpperCase())
+							.append(x.getNomeMetodo().substring(1, x.getNomeMetodo().length())).append("(){").append("return this.")
+							.append(x.getNomeMetodo()).append(x.getTipoMetodo().equals(String.class) ? "" : ".toString()").append(PONTO_VIRGULA)
+							.append(FECHA_CHAVE);
 
-                }
+					getterSetter.append("public void set").append(x.getNomeMetodo().substring(0, 1).toUpperCase())
+							.append(x.getNomeMetodo().substring(1, x.getNomeMetodo().length())).append("(").append(x.getTipoMetodo().getSimpleName())
+							.append(" ").append(x.getNomeMetodo()).append("){").append("this.").append(x.getNomeMetodo()).append("=")
+							.append(x.getNomeMetodo()).append(PONTO_VIRGULA).append(FECHA_CHAVE);
 
-            });
+				}
 
-            stringBuilder.append(" public " + name + "() {").append(FECHA_CHAVE);
+			});
 
-            stringBuilder.append(getterSetter.toString());
+			stringBuilder.append(" public " + name + "() {").append(FECHA_CHAVE);
 
-            stringBuilder.append(FECHA_CHAVE);
+			stringBuilder.append(getterSetter.toString());
 
-            FileUtils.writeStringToFile(arquivo, new Formatter().formatSourceAndFixImports(stringBuilder.toString()), Charset.defaultCharset());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+			stringBuilder.append(FECHA_CHAVE);
 
-    private static void organizeImports(StringBuilder stringBuilder, List<CriacaoClasseVO> criacaoClasseVOs) {
+			FileUtils.writeStringToFile(arquivo, new Formatter().formatSourceAndFixImports(stringBuilder.toString()), Charset.defaultCharset());
+		} catch (Exception e) {
 
-        stringBuilder.append("import java.io.Serializable;\n");
+			log.error("Erro Criando Classe", e);
+		}
+	}
 
-        criacaoClasseVOs.stream().forEach(x -> stringBuilder.append("import ").append(x.getTipoMetodo().getName()).append(";\n"));
+	private static void organizeImports(StringBuilder stringBuilder, List<CriacaoClasseVO> criacaoClasseVOs) {
 
-    }
+		stringBuilder.append("import java.io.Serializable;\n");
 
-    private static void compile(File arquivo) {
-        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+		criacaoClasseVOs.stream().forEach(x -> stringBuilder.append("import ").append(x.getTipoMetodo().getName()).append(";\n"));
 
-        compiler.run(null, null, null, arquivo.getPath());
+	}
 
-    }
+	private static void compile(File arquivo) {
+		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
-    private static Class<?> instance(File root, String name) {
-        URLClassLoader classLoader;
+		compiler.run(null, null, null, arquivo.getPath());
 
-        try {
-            classLoader = URLClassLoader.newInstance(new URL[] { root.toURI().toURL() });
-            return Class.forName(name, true, classLoader);
+	}
 
-        } catch (Exception e) {
-            return null;
-        }
+	private static Class<?> instance(File root, String name) {
+		URLClassLoader classLoader;
 
-    }
+		try {
+			classLoader = URLClassLoader.newInstance(new URL[] { root.toURI().toURL() });
+			return Class.forName(name, true, classLoader);
+
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
 
 }

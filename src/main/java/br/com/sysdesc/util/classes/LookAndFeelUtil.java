@@ -28,8 +28,14 @@ public class LookAndFeelUtil {
 		p.setProperty("windowTitleFont", FONTE);
 		p.setProperty("subTextFont", FONTE);
 
+		UIManager.put("OptionPane.cancelButtonText", "Cancelar");
+		UIManager.put("OptionPane.noButtonText", "Não");
+		UIManager.put("OptionPane.yesButtonText", "Sim");
+
 		MintLookAndFeel.setCurrentTheme(p);
 
 		UIManager.setLookAndFeel("com.jtattoo.plaf.mint.MintLookAndFeel");
+
 	}
+
 }

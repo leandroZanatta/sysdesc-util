@@ -13,7 +13,9 @@ public enum TipoStatusBoletoEnum {
 
 	AUTORIZADO(4L, "Autorizado"),
 
-	BAIXADO_MANUALMENTE(5L, "Baixado Manualmente");
+	BAIXADO_MANUALMENTE(5L, "Baixado Manualmente"),
+
+	PAGO(6L, "Pago"),;
 
 	private static Map<Long, TipoStatusBoletoEnum> mapa = new HashMap<>();
 

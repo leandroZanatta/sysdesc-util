@@ -39,4 +39,9 @@ public class BigDecimalUtil {
 		return valor1.setScale(2, RoundingMode.HALF_EVEN).compareTo(valor2.setScale(2, RoundingMode.HALF_EVEN)) != 0;
 	}
 
+	public static boolean menor(BigDecimal valor1, BigDecimal valor2) {
+
+		return ifNulZero(valor1).compareTo(ifNulZero(valor2)) < 0;
+	}
+
 }

@@ -8,22 +8,22 @@ import lombok.Data;
 @Data
 public class PesquisaContasReceberVO {
 
-    private Long codigoContasReceber;
+	private Long codigoContasReceber;
 
-    private String programa;
+	private Long codigoCliente;
 
-    private Long codigoCliente;
+	private String codigoDocumento;
 
-    private Long codigoFormaPagamento;
+	private Long codigoFormaPagamento;
 
-    private Date dataVencimentoInicial;
+	private Date dataVencimentoInicial;
 
-    private Date dataVencimentoFinal;
+	private Date dataVencimentoFinal;
 
-    private BigDecimal valorParcelaInicial;
+	private BigDecimal valorParcelaInicial;
 
-    private BigDecimal valorParcelaFinal;
+	private BigDecimal valorParcelaFinal;
 
-    private boolean documentoBaixado;
+	private boolean documentoBaixado;
 
 }

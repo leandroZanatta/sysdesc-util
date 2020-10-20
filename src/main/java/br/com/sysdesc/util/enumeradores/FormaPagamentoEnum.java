@@ -5,23 +5,23 @@ import java.util.Map;
 
 public enum FormaPagamentoEnum {
 
-	DINHEIRO(1L, false, false, "Dinheiro"),
+	DINHEIRO(1L, false, "Dinheiro"),
 
-	CHEQUE(2L, true, true, "Cheque"),
+	CHEQUE(2L, true, "Cheque"),
 
-	BOLETO(3L, false, true, "Boleto"),
+	BOLETO(3L, true, "Boleto"),
 
-	CARTAO_DEBITO(4L, false, true, "Cartão de débito"),
+	CREDIARIO(4L, true, "Crediário"),
 
-	CARTAO_CREDITO(5L, true, true, "Cartão de Crédito");
+	CARTAO_DEBITO(5L, false, "Cartão de débito"),
+
+	CARTAO_CREDITO(6L, true, "Cartão de Crédito");
 
 	private static Map<Long, FormaPagamentoEnum> mapa = new HashMap<>();
 
 	private final Long codigo;
 
 	private final boolean pagamentoAPrazo;
-
-	private final boolean utilizaBanco;
 
 	private final String descricao;
 
@@ -31,10 +31,9 @@ public enum FormaPagamentoEnum {
 		}
 	}
 
-	private FormaPagamentoEnum(Long codigo, boolean pagamentoAPrazo, boolean utilizaBanco, String descricao) {
+	private FormaPagamentoEnum(Long codigo, boolean pagamentoAPrazo, String descricao) {
 		this.codigo = codigo;
 		this.pagamentoAPrazo = pagamentoAPrazo;
-		this.utilizaBanco = utilizaBanco;
 		this.descricao = descricao;
 	}
 
@@ -48,10 +47,6 @@ public enum FormaPagamentoEnum {
 
 	public String getDescricao() {
 		return descricao;
-	}
-
-	public boolean isUtilizaBanco() {
-		return utilizaBanco;
 	}
 
 	@Override

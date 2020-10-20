@@ -58,7 +58,7 @@ public class Conexao {
 
 		Properties propertiesConexao = buscarPropertiesConexao(configuracaoBanco);
 
-		entityManager = Persistence.createEntityManagerFactory("Lar", propertiesConexao).createEntityManager();
+		entityManager = Persistence.createEntityManagerFactory("SysTrans", propertiesConexao).createEntityManager();
 
 		sqlTemplates = createTemplate(propertiesConexao);
 	}

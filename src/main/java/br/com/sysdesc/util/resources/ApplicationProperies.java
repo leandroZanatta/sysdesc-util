@@ -8,7 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import br.com.sysdesc.util.constants.MensagemConstants;
+import br.com.sysdesc.util.constants.MensagemUtilConstants;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -39,7 +39,7 @@ public class ApplicationProperies {
 
 			} catch (IOException e) {
 
-				log.error(MensagemConstants.MENSAGEM_ARQUIVO_CONFIGURACOES_NAO_ENCONTRADO + " - " + e.getMessage());
+				log.error(MensagemUtilConstants.MENSAGEM_ARQUIVO_CONFIGURACOES_NAO_ENCONTRADO + " - " + e.getMessage());
 			}
 
 		}
@@ -75,7 +75,7 @@ public class ApplicationProperies {
 			properties.store(fileOutputStream, null);
 
 		} catch (Exception e) {
-			log.error(MensagemConstants.MENSAGEM_ARQUIVO_CONFIGURACOES_NAO_ENCONTRADO + " - " + e.getMessage());
+			log.error(MensagemUtilConstants.MENSAGEM_ARQUIVO_CONFIGURACOES_NAO_ENCONTRADO + " - " + e.getMessage());
 		}
 
 	}

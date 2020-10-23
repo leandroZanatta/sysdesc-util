@@ -1,6 +1,6 @@
 package br.com.sysdesc.util.dao;
 
-import static br.com.sysdesc.util.constants.MensagemConstants.MENSAGEM_DRIVER_NAO_ENCONTRADO;
+import static br.com.sysdesc.util.constants.MensagemUtilConstants.MENSAGEM_DRIVER_NAO_ENCONTRADO;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +19,7 @@ import com.mysema.query.sql.PostgresTemplates;
 import com.mysema.query.sql.SQLTemplates;
 
 import br.com.sysdesc.util.classes.CryptoUtil;
-import br.com.sysdesc.util.constants.MensagemConstants;
+import br.com.sysdesc.util.constants.MensagemUtilConstants;
 import br.com.sysdesc.util.exception.SysDescException;
 import br.com.sysdesc.util.resources.Configuracoes;
 import br.com.sysdesc.util.resources.Resources;
@@ -108,7 +108,7 @@ public class Conexao {
 
 		} catch (IOException e) {
 
-			log.error(Resources.translate(MensagemConstants.MENSAGEM_LOG_PROPRIEDADES_CONEXAO), e);
+			log.error(Resources.translate(MensagemUtilConstants.MENSAGEM_LOG_PROPRIEDADES_CONEXAO), e);
 
 			return null;
 		}

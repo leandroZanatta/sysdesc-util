@@ -1,6 +1,6 @@
 package br.com.sysdesc.util.enumeradores;
 
-import static br.com.sysdesc.util.constants.MensagemConstants.MENSAGEM_TIPO_DADO_INVALIDO;
+import static br.com.sysdesc.util.constants.MensagemUtilConstants.MENSAGEM_TIPO_DADO_INVALIDO;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

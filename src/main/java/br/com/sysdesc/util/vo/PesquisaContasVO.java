@@ -6,9 +6,9 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class PesquisaContasReceberVO {
+public class PesquisaContasVO {
 
-	private Long codigoContasReceber;
+	private Long codigoConta;
 
 	private Long codigoCliente;
 

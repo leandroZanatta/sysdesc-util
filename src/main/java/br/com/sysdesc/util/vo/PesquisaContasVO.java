@@ -26,4 +26,6 @@ public class PesquisaContasVO {
 
 	private boolean documentoBaixado;
 
+	private boolean documentoVencido;
+
 }

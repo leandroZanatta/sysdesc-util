@@ -39,6 +39,8 @@ public class CampoClientesHabilitadosVO implements Serializable {
 
 	private boolean celular = true;
 
+	private boolean telefone = true;
+
 	private boolean email = true;
 
 	private boolean estadoCivil = true;

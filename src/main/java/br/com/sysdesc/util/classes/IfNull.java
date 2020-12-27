@@ -1,5 +1,7 @@
 package br.com.sysdesc.util.classes;
 
+import java.util.function.Function;
+
 public class IfNull {
 
 	private IfNull() {
@@ -34,6 +36,11 @@ public class IfNull {
 		}
 
 		return null;
+	}
+
+	public static <T, K> K caseNull(T object, K defaultvalue, Function<T, K> function) {
+
+		return object == null ? defaultvalue : function.apply(object);
 	}
 
 }

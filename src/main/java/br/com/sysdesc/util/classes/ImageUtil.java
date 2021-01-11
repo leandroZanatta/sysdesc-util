@@ -1,5 +1,6 @@
 package br.com.sysdesc.util.classes;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
@@ -110,4 +111,19 @@ public class ImageUtil {
 		return imagem.getSubimage(x, y, width, height);
 	}
 
+	public static Dimension scaleImage(Integer width, Integer height, Integer maxWidth, Integer maxHeight) {
+		Double alphaWidth = width.doubleValue() / maxWidth.doubleValue();
+		Double alphaHeight = height.doubleValue() / maxHeight.doubleValue();
+
+		if (alphaHeight < 1 && alphaWidth < 1) {
+
+			return new Dimension(width, height);
+		}
+		if (alphaWidth > alphaHeight) {
+
+			return new Dimension(maxWidth, ((int) (height / alphaWidth)));
+		}
+
+		return new Dimension(((int) (width / alphaHeight)), maxHeight);
+	}
 }
